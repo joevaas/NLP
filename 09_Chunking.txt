@@ -1,0 +1,52 @@
+CHUNKING
+========
+
+j = i + 1
+while j < len(tags) and tags[j] == 'JJ':
+j += 1
+if j < len(tags) and tags[j] == 'NN':
+chunk = pos_tagged[i:j+1]
+chunks.append(chunk)
+i = j + 1
+continue
+i += 1
+return chunks
+# Run the chunker
+chunks = find_chunks(pos_tagged, pattern)
+for chunk in chunks:
+print("Chunk:", chunk)
+OUTPUT:
+Chunk: [('The', 'DT'), ('quick', 'JJ'), ('brown', 'JJ'), ('fox', 'NN')]
+Chunk: [('the', 'DT'), ('lazy', 'JJ'), ('dog', 'NN')]
+RESULT:
+Thus the above Chunking python program was implemented and executed
+successfully.
+
+10. Building Chunker
+AIM:
+To write a python program for . Building Chunker
+ALGORITHM:
+1. Define chunk grammar (e.g., NP →DT JJ\* NN).
+2. Tokenize and POS tag the sentence.
+3. Scan for pattern matches.
+4. Extract matched phrases.
+5. Store chunked structures.
+6. Handle overlapping/non-matching tokens.
+7. Optimize chunk grammar.
+8. Apply chunking to multiple sentences.
+9. Evaluate chunk accuracy.
+10.
+Fine-tune grammar or use ML for chunking.
+PROGRAM:
+import re
+sentence = [('The', 'DT'), ('lazy', 'JJ'), ('dog', 'NN'),
+('barked', 'VBD'), ('at', 'IN'), ('the', 'DT'),
+('strange', 'JJ'), ('cat', 'NN')]
+tags = ' '.join(tag for _, tag in sentence)
+pattern = re.compile(r'DT(?: JJ)* NN')
+chunks = []
+i = 0
+while i < len(sentence) - 2:
+if sentence[i][1] == 'DT':
+j = i + 1
+while j < len(sentence) and sentence[j][1] == 'JJ':

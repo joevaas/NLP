@@ -1,0 +1,49 @@
+MORPHOLOGY
+==========
+
+3.MORPHOLOGY
+AIM:
+To write a python program for morphology
+ALGORITHM:
+1. Input a word to be stemmed.
+2. Convert the word to lowercase to standardize processing.
+3. Check if the word ends with "ing" and has more than 3 characters, then
+remove "ing".
+4. If the word ends with "ed", remove the "ed" suffix.
+5. If the word ends with "s", remove the "s" to handle simple plurals.
+6. If none of the conditions match, return the word as-is.
+7. Repeat for all words in the list using a loop.
+8. Print both original and stemmed words side by side.
+9.End.
+PROGRAM:
+def simple_stemmer(word):
+word = word.lower()
+if word.endswith('ing'):
+# Check for a possible 'e' before removing 'ing'
+if word.endswith('ing') and len(word) > 3:
+return word[:-3]
+else:
+return word
+
+if word.endswith('ed'):
+return word[:-2]
+if word.endswith('s'):
+# Handle simple plural `s`
+return word[:-1]
+return word
+words_to_analyze = ["running", "ran", "runs", "better", "geese", "corpora"]
+print("--- Morphology (Pure Python Simple Stemmer) ---")
+for word in words_to_analyze:
+stem = simple_stemmer(word)
+print(f"Original: {word.ljust(10)}, Stem: {stem}")
+OUTPUT:
+--- Morphology (Pure Python Simple Stemmer) ---
+Original: running , Stem: runn
+Original: ran , Stem: ran
+Original: runs , Stem: run
+Original: better , Stem: better
+Original: geese , Stem: geese
+Original: corpora , Stem: corpora
+RESULT:
+Thus the above morphology python program was implemented and executed
+successfully.

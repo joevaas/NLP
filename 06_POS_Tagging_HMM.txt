@@ -1,0 +1,60 @@
+POS TAGGING: HIDDEN MARKOV MODEL
+================================
+
+6.POS TAGGING: Hidden Markov model
+AIM:
+To write a python program for POS TAGGING: Hidden Markov model.
+ALGORITM:
+1. Input training sentences with (word, tag) pairs.
+2. Count transitions between tags: P(tagᵢ| tagᵢ₋₁).
+3. Count emissions: P(word | tag).
+4. Count total occurrences for each tag.
+5. For a new sentence, use the Viterbi method to find the tag sequence with
+highest probability.
+6. At each step, multiply previous max path with transition and emission
+probability.
+7. Track back best paths using dynamic programming.
+8. Return the most probable tag sequence.
+9. End.
+PROGRAM:
+states = ['NOUN', 'VERB']
+observations = ['dog', 'barks']
+start_probability = {'NOUN': 0.6, 'VERB': 0.4}
+transition_probability = { 'NOUN': {'NOUN': 0.1, 'VERB': 0.9},
+'VERB': {'NOUN': 0.8, 'VERB': 0.2}}
+emission_probability = { 'NOUN': {'dog': 0.9, 'barks': 0.1},
+'VERB': {'dog': 0.1, 'barks': 0.9}}
+def viterbi(obs, states, start_p, trans_p, emit_p):
+V= [{}]
+
+path = {}
+for state in states:
+V[0][state] = start_p[state] * emit_p[state].get(obs[0], 0)
+path[state] = [state]
+for t in range(1, len(obs)):
+V.append({})
+new_path = {}
+for curr_state in states:
+(prob, prev_state) = max(
+(V[t - 1][prev_state] * trans_p[prev_state][curr_state] *
+emit_p[curr_state].get(obs[t], 0),
+prev_state)
+for prev_state in states
+)
+V[t][curr_state] = prob
+new_path[curr_state] = path[prev_state] + [curr_state]
+path = new_path
+(prob, state) = max((V[-1][state], state) for state in states)
+return path[state]
+sentence = ['dog', 'barks']
+tags = viterbi(sentence, states, start_probability, transition_probability,
+emission_probability)
+print("Sentence:", sentence)
+print("Predicted POS tags:", tags)
+
+OUTPUT:
+Sentence: ['dog', 'barks']
+Predicted POS tags: ['NOUN', 'VERB']
+RESULT:
+Thus the above POS tagging python program was implemented and executed
+successfully.

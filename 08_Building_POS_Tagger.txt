@@ -1,0 +1,41 @@
+BUILDING POS TAGGER
+===================
+
+most_freq_tag[word] = most_common
+# Step 3: Define the POS tagger
+def pos_tag(sentence):
+return [(word, most_freq_tag.get(word, 'NN')) for word in sentence]
+# Step 4: Test the tagger
+test_sentence = ['a', 'dog', 'meows']
+tagged = pos_tag(test_sentence)
+print("Tagged Sentence:", tagged
+OUTPUT:
+Tagged Sentence: [('a', 'DT'), ('dog', 'NN'), ('meows', 'VBZ')]
+RESULT:
+Thus the above POS tagging : Viterbi Decoding python program was
+implemented and executed successfully.
+
+9.CHUNKING
+AIM:
+To write a python program for CHUNKING
+ALGORITHM:
+1. Use a POS-tagged sentence.
+2. Define chunk grammar (e.g., noun phrases).
+3. Apply regex patterns to POS sequences.
+4. Extract chunks from the sentence.
+PROGRAM:
+import re
+pos_tagged = [('The', 'DT'), ('quick', 'JJ'), ('brown', 'JJ'),
+('fox', 'NN'), ('jumps', 'VBZ'), ('over', 'IN'),
+('the', 'DT'), ('lazy', 'JJ'), ('dog', 'NN')]
+tag_sequence = ' '.join(tag for _, tag in pos_tagged)
+pattern = re.compile(r'\b(DT(?: JJ)* NN)\b')
+def find_chunks(pos_tagged, pattern):
+tag_seq = ' '.join(tag for _, tag in pos_tagged)
+word_seq = [word for word, _ in pos_tagged]
+tag_list = tag_seq.split()
+chunks = []
+tags = [tag for _, tag in pos_tagged]
+i = 0
+while i < len(tags) - 2:
+if tags[i] == 'DT':

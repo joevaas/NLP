@@ -1,0 +1,72 @@
+POS TAGGING: VITERBI DECODING
+=============================
+
+7. POS Tagging: Viterbi Decoding
+AIM:
+To write a python program for POS TAGGING Viterbi Decoding
+AL;GORITHM:
+1. Define the states (POS tags) and observations (words).
+2. Initialize the probabilities: start, transition, and emission.
+3. Create a Viterbi table and a backpointer table.
+4. For the first word, compute initial probabilities.
+5. For each word (t > 0), for each tag:
+a. Compute the max probability over previous tags.
+b. Store the backpointer.
+6. Continue until the last word.
+7. Backtrack from the last word using backpointers.
+8. Return the most probable POS tag sequence.
+PROGRAM:
+states = ['Noun', 'Verb']
+observations = ['fish', 'swim']
+start_p = {'Noun': 0.6, 'Verb': 0.4}
+trans_p = {'Noun': {'Noun': 0.3, 'Verb': 0.7},
+'Verb': {'Noun': 0.8, 'Verb': 0.2}}
+emit_p = {'Noun': {'fish': 0.5, 'swim': 0.1},
+'Verb': {'fish': 0.4, 'swim': 0.6}}
+V = [{}]
+path = {}
+for y in states:
+V[0][y] = start_p[y] * emit_p[y].get(observations[0], 0)
+path[y] = [y]
+
+for t in range(1, len(observations)):
+V.append({})
+new_path = {}
+for y in states:
+(prob, state) = max((V[t-1][y0]* trans_p[y0][y] * emit_p[y].get(observations[t],
+0), y0) for y0 in states)
+V[t][y] = prob
+new_path[y] = path[state] + [y]
+path = new_path
+(n, final_state) = max((V[-1][y], y) for y in states)
+print("Best path:", path[final_state])
+OUTPUT:
+Best path: ['Noun', 'Verb']
+RESULT:
+Thus the above POS tagging : Viterbi Decoding python program was
+implemented and executed successfully.
+
+8. Building POS Tagger
+AIM:
+To write a python program for Building POS Tagger
+Algorithm :
+1. Collect a labeled corpus (word/tag pairs).
+2. Train a simple model: e.g., most frequent tag for each word.
+3. Apply rule-based or statistical backoff for unknown words.
+4. Tag a sentence by applying the trained model word by word.
+PROGRAM:
+# Training data (word, tag)
+training_data = [
+('the', 'DT'), ('dog', 'NN'), ('barks', 'VBZ'),
+('a', 'DT'), ('cat', 'NN'), ('meows', 'VBZ'),
+('the', 'DT'), ('dog', 'NN'), ('runs', 'VBZ')
+]
+tag_freq = {}
+for word, tag in training_data:
+if word not in tag_freq:
+tag_freq[word] = {}
+tag_freq[word][tag] = tag_freq[word].get(tag, 0) + 1
+# Step 2: Assign the most frequent tag to each word
+most_freq_tag = {}
+for word, tags in tag_freq.items():
+most_common = max(tags, key=tags.get)

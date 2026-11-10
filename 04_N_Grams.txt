@@ -1,0 +1,53 @@
+N-GRAMS
+=======
+
+4.N GRAMS
+AIM:
+To write a python program for N GRAMS.
+ALGORITHM:
+1. Input a text string that you want to analyze.
+2. Convert the text to lowercase for consistency.
+3. Split the text into tokens (words) using .split().
+4. Define a function that takes the list of tokens and a number n.
+5. Loop from index 0 to len(tokens) - n + 1 to cover all possible N-grams.
+6. Extract N tokens at each step using slicing tokens[i:i+n].
+7. Convert the slice to a tuple to represent one N-gram.
+8. Append each N-gram to the list of N-grams.
+9. Return the final list of N-gram tuples.
+10.
+Call the function with n=2 and n=3 to get bigrams and trigrams.
+11.
+Print the generated N-grams clearly.
+12.
+End.
+PROGRAM:
+def generate_ngrams(tokens, n):
+"""Generates N-grams from a list of tokens."""
+ngrams_list = []
+for i in range(len(tokens) - n + 1):
+ngram = tuple(tokens[i:i+n])
+ngrams_list.append(ngram)
+return ngrams_list
+text = "N-grams are contiguous sequences of N items."
+tokens = text.lower().split()
+
+print("--- N-Grams (Pure Python) ---")
+bigrams = generate_ngrams(tokens, 2)
+print("Bigrams:", bigrams)
+trigrams = generate_ngrams(tokens, 3)
+print("\nTrigrams:", trigrams)
+OUTPUT:
+--- N-Grams (Pure Python) ---
+Bigrams: [('n-grams', 'are'), ('are', 'contiguous'), ('contiguous', 'sequences'),
+('sequences', 'of'), ('of', 'n'), ('n', 'items.')]
+Trigrams:
+[('n-grams',
+'are',
+'contiguous'),
+('are',
+'contiguous',
+'sequences'),
+('contiguous', 'sequences', 'of'), ('sequences', 'of', 'n'), ('of', 'n', 'items.')]
+RESULT:
+Thus the above n grams python program was implemented and executed
+successfully.

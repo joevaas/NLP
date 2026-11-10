@@ -1,0 +1,42 @@
+WORD GENERATION
+===============
+
+2.WORD GENERATION
+AIM:
+To write a python program for word analysis.
+ALGORITHM:
+1. Create three lists: one each for prefixes, roots, and suffixes.
+2. Define a function to generate one word at a time.
+3. Randomly choose one prefix from the prefix list.
+4. Randomly choose one root from the root list.
+5. Randomly choose one suffix from the suffix list.
+6. Concatenate prefix, root, and suffix to form a new word.
+7. Return the generated word from the function.
+8. Repeat the process multiple times (e.g., 5 times) using a loop.
+9. Print each generated word with its count label
+10.
+End.
+PROGRAM:
+import random
+prefixes = ["un", "re", "pre", "mis"]
+roots = ["act", "read", "view", "port"]
+suffixes = ["ing", "ed", "able", "ful"]
+def generate_word():
+prefix = random.choice(prefixes)
+root = random.choice(roots)
+suffix = random.choice(suffixes)
+return prefix + root + suffix
+
+print("--- Word Generation (Pure Python) ---")
+for i in range(5):
+print(f"Generated word {i+1}: {generate_word()}")
+OUTPUT:
+--- Word Generation (Pure Python) ---
+Generated word 1: misviewed
+Generated word 2: unactable
+Generated word 3: misreaded
+Generated word 4: previewed
+Generated word 5: misviewed
+RESULT:
+Thus the above word generation python program was implemented and
+executed successfully.

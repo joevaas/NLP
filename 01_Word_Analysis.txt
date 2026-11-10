@@ -1,0 +1,51 @@
+WORD ANALYSIS
+=============
+
+1 .WORD ANALYSIS
+AIM:
+To write a python program for word analysis.
+ALGORITHM:
+1. 1.Input the text as a string.
+2. Remove punctuation by checking each character and keeping
+only non-punctuation characters.
+3. Convert the text to lowercase for uniformity.
+4. Split the cleaned text into a list of words (tokens) using
+spaces.
+5. Count total words using len() on the token list.
+6. Count unique words using len(set(tokens)).
+7. Count frequency of each word using a dictionary or
+collections.Counter.
+8. Sort and get the most common words by frequency.
+9. Display the report with total, unique, and top frequent words.
+10.
+End the program.
+PROGRAM:
+import string
+from collections import Counter
+text = "The quick brown fox jumps over the lazy dog. The dog barks."
+s = text.lower()
+s = "".join(ch for ch in s if ch not in string.punctuation)
+tokens = s.split()
+
+total_words = len(tokens)
+unique_words = len(set(tokens))
+word_freq = Counter(tokens)
+print("--- Word Analysis Report (Pure Python) ---")
+print("Total words: {}".format(total_words))
+print("Unique words: {}".format(unique_words))
+print()
+print("Most common words:")
+for word, freq in word_freq.most_common(5):
+print(" {}: {}".format(word, freq))
+OUTPUT:
+--- Word Analysis Report (Pure Python) ---
+Total words: 12
+Unique words: 9
+Most common words:
+the: 3
+dog: 2
+quick: 1
+brown: 1
+fox: 1
+RESULT :
+Thus the above word analysis python program was executed successfully.

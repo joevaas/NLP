@@ -1,0 +1,17 @@
+BUILDING CHUNKER
+================
+
+j += 1
+if j < len(sentence) and sentence[j][1] == 'NN':
+chunks.append(sentence[i:j+1])
+i = j + 1
+continue
+i += 1
+for chunk in chunks:
+print("Chunk:", chunk)
+OUTPUT:
+Chunk: [('The', 'DT'), ('lazy', 'JJ'), ('dog', 'NN')]
+Chunk: [('the', 'DT'), ('strange', 'JJ'), ('cat', 'NN')]
+RESULT:
+Thus the above Building Chunker python program was implemented and
+executed successfully.

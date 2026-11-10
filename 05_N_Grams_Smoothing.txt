@@ -1,0 +1,109 @@
+N-GRAMS SMOOTHING
+=================
+
+5.N GRAMS SMOOTHING
+AIM:
+To write a python program for N GRAMS SMOOTHING.
+ALGORITHM:
+1. Input a text corpus and the value of n (bigram = 2, trigram = 3, etc.).
+2. Convert the text to lowercase and split it into tokens (words).
+3. Add <START> and <END> tokens to represent the beginning and end of
+sentences.
+4. Create a vocabulary set from the list of tokens and compute its size.
+5. Initialize count dictionaries for N-Grams and (N−1)-Gram contexts.
+6. Slide through the token list and extract each N-Gram and its context.
+7. Count how many times each context and each next word occurs.
+8. Initialize a dictionary for smoothed probabilities.
+9. For each context, calculate the smoothed probability of each possible next
+word using:
+10.
+Add probabilities for unseen words in each context to make the
+model complete.
+11.
+Return the full probability model as a nested dictionary.
+12.
+For selected context-word pairs, lookup and print their smoothed
+probabilities.
+13.
+Repeat the same process for trigram model (n=3) and test other
+context predictions.
+14.
+End.
+PROGRAM:
+import collections
+def laplace_smoothing_alternative(text, n=2):
+
+words = text.lower().split()
+words = ['<START>'] * (n - 1) + words + ['<END>'] * (n - 1)
+vocabulary = set(words)
+vocab_size = len(vocabulary)
+ngram_counts =collections.defaultdict(lambda: collections.defaultdict(int))
+context_counts = collections.defaultdict(int)
+for i in range(len(words) - n + 1):
+ngram = tuple(words[i:i+n])
+context = ngram[:-1]
+next_word = ngram[-1]
+ngram_counts[context][next_word] += 1
+context_counts[context] += 1
+smoothed_probabilities = collections.defaultdict(dict)
+for context, next_word_counts in ngram_counts.items():
+denominator = context_counts[context] + vocab_size
+for next_word in vocabulary:
+numerator = next_word_counts.get(next_word, 0) + 1
+prob = numerator / denominator
+smoothed_probabilities[context][next_word] = prob
+for context in context_counts.keys():
+denominator = context_counts[context] + vocab_size
+for word in vocabulary:
+if word not in smoothed_probabilities[context]:
+numerator = 1 # The count is 0, so add one
+prob = numerator / denominator
+smoothed_probabilities[context][word] = pro
+
+return smoothed_probabilities
+text_corpus = """
+the cat sat on the mat.
+the dog chased the cat.
+a cat is an animal.
+"""
+smoothed_model = laplace_smoothing_alternative(text_corpus, n=2)
+print("Smoothed Probabilities:")
+context = ('the',)
+next_word = 'cat'
+if context in smoothed_model and next_word in smoothed_model[context]:
+prob = smoothed_model[context][next_word]
+print(f"P('{next_word}' | '{context[0]}') = {prob:.4f}")
+else:
+print(f"P('{next_word}' | '{context[0]}') not found.")
+next_word = 'dog'
+if context in smoothed_model and next_word in smoothed_model[context]:
+prob = smoothed_model[context][next_word]
+print(f"P('{next_word}' | '{context[0]}') = {prob:.4f}")
+else:
+print(f"P('{next_word}' | '{context[0]}') not found.")
+context = ('is',)
+next_word = 'cat'
+if context in smoothed_model and next_word in smoothed_model[context]:
+prob = smoothed_model[context][next_word]
+print(f"P('{next_word}' | '{context[0]}') = {prob:.4f}")
+
+else:
+print(f"P('{next_word}' | '{context[0]}') not found.")
+smoothed_trigram_model = laplace_smoothing_alternative(text_corpus, n=3)
+context = ('the', 'cat')
+next_word = 'mat'
+if context in smoothed_trigram_model and next_word in
+smoothed_trigram_model[context]:
+prob = smoothed_trigram_model[context][next_word]
+print(f"\nP('{next_word}' | '{context[0]} {context[1]}') = {prob:.4f}")
+else:
+print(f"\nP('{next_word}' | '{context[0]} {context[1]}') not found.")
+OUTPUT:
+Smoothed Probabilities:
+P('cat' | 'the') = 0.1111
+P('dog' | 'the') = 0.1111
+P('cat' | 'is') = 0.0667
+P('mat' | 'the cat') not found.
+RESULT:
+Thus the above n grams smoothing python program was implemented and
+executed successfully.
